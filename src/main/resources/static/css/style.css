@@ -1,0 +1,82 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: "Roboto";
+    font-weight: 600;
+    
+}
+.navbar {
+    font-family: "Roboto"; 
+    font-weight: 600;
+    display: flex;
+    justify-content:start;
+    padding-left: 15px;
+    gap: 10px;
+}
+.navbar > h3 {
+    margin-top: 5px;
+}
+
+main {
+    flex: 1;
+}
+.container{
+   margin-top: 45px;
+}
+
+footer  {
+    background: #222;
+    text-align: center;
+    padding: 20px 10px 10px 10px;
+    margin-top: 250px;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; 
+}
+
+footer p{
+     color: rgba(255, 255, 255, 0.6);
+}
+ 
+.container {
+    border-radius: 20px;
+
+}
+nav img {
+    height: 40px;
+    width: 40px;
+}
+
+#campoBusca{
+
+    display: flex;
+    justify-content:space-between;
+    align-items: end;
+
+}
+
+.inputbusca{
+    border-radius: 10px;
+    height: 35px;
+    margin-right: 20px;
+}
+
+#btn-busca{
+    margin-right: 20px;
+}
+
+.logo{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}

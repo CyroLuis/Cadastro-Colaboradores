@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+            <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+</style>
+    <title>Cadastro T.I</title>
+</head>
+<body>
+<nav id="campoBusca" class="navbar px-3" style="background-color: #e3f2fd;" data-bs-theme="light">
+    <h3>Cadastro de usuários CD 116</h3>
+
+    <div class="d-flex align-items-center">
+        <form action="/home" method="get" class="d-flex align-items-center me-3 mb-0">
+            <input class="inputbusca form-control me-2" type="text" name="nome" placeholder="Buscar Usuario">
+            <button id="btn-busca" type="submit" class="btn btn-primary me-2">Buscar</button>
+            <a href="/form" class="btn btn-primary">Cadastrar</a>
+        </form>
+
+        <form th:action="@{/logout}" method="post" class="mb-0">
+            <button type="submit" class="btn btn-danger">Sair</button>
+        </form>
+    </div>
+</nav>
+<main class="container">
+    <h1>Usuários cadastrados</h1>
+
+    <div th:if="${mensagem}"
+         class="alert alert-warning">
+        <span th:text="${mensagem}"></span>
+    </div>
+
+    <table class="table">
+        <thead class="table-light">
+            <tr>
+                <th>#</th>
+                <th>NOME</th>
+                <th>CPF</th>
+                <th>DATA DE NASCIMENTO</th>
+                <th>DATA DE ADMISSÃO</th>
+                <th>NOME DA MÃE</th>
+                <th>MATEUS ID</th>
+                <th>COPIAR</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="usuario, iterStat : ${usuarios}"  th:object="${usuario}">
+                <th th:text="${iterStat.count}"></th>
+                <td th:text="*{nome}"></td>
+                <td th:text="*{cpf}"></td>
+                <td th:text="*{dataNascimento.format(T(java.time.format.DateTimeFormatter).ofPattern('dd/MM/yyyy'))}"></td>
+                <td th:text="*{dataAdmissao.format(T(java.time.format.DateTimeFormatter).ofPattern('dd/MM/yyyy'))}"></td>
+                <td th:text="*{nomeMae}"></td>
+                <td th:text="*{mateusId}"></td>
+                <td><button type="button" class="btn btn-info" onclick="copiarLinha(this)">Copiar</button></td>
+            </tr>
+        </tbody>
+    </table>
+</main>
+ <div class="toast-container position-fixed bottom-0 end-0 p-3">
+     <div id="toastCopy" class="toast align-items-center text-bg-success border-0" role="alert">
+         <div class="d-flex">
+            <div class="toast-body">
+                Dados copiados com sucesso!
+            </div>
+             <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+         </div>
+     </div>
+ </div>
+<script>
+    function copiarLinha(botao) {
+        let linha = botao.closest("tr");
+        let colunas = linha.querySelectorAll("td");
+
+        let texto = "";
+
+        colunas.forEach((coluna, index) => {
+            if (index < colunas.length - 1) {
+                texto += coluna.innerText + "\t";
+            }
+        });
+
+        navigator.clipboard.writeText(texto.trim())
+            .then(() => {
+                 // 🔵 Muda texto
+            botao.innerText = "Copiar";
+
+            // 🟢 Muda cor
+            botao.classList.remove("btn-info");
+            botao.classList.add("btn-success");
+
+            // 🔄 Volta ao normal depois de 2 segundos
+            setTimeout(() => {
+                botao.innerText = "Copiar";
+                botao.classList.remove("btn-success");
+                botao.classList.add("btn-info");
+            }, 2000);
+
+        })
+            .catch(err => {
+                console.error("Erro ao copiar: ", err);
+            });
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
