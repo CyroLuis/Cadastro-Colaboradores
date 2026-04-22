@@ -25,7 +25,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     </div>
 
-<form  class="container w-50 p-3 mb-2 bg-primary-subtle text-primary-emphasis" method="POST" th:object="${form}">
+<form  class="container w-50 p-3 mb-2 bg-primary-subtle text-primary-emphasis" method="POST" th:object="${form}" th:action="@{/form}">
     <h1>Cadastre</h1>
     <div class="mb-3">
     <label for="nome" class="form-label">Nome: </label>
